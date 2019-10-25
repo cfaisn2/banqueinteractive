@@ -7,39 +7,37 @@
 #include "Banque.h"
 using namespace std;
 
-Banque::Banque():nbclients(0) {
+Banque::Banque() {
 
 }
 
 void Banque::ajouterclient(const string &nom_du_client) {
-    clients[nbclients]=Client(nom_du_client);
-    nbclients++;
+    clients.push_back(Client(nom_du_client));
+
 
 }
 
 void Banque::bilanclient(const  int numeroduclient) {
 
 
-        for(int i=0;i<clients[numeroduclient].getNbcomptes();i++)
-        {
+    for (Compte c: clients[numeroduclient].getComptes())
+    {
+    c.afficherSolde();
+    }
 
-            clients[numeroduclient].afficherSolde(i);
-        }
 
 
 }
 
 void Banque::afficherBilan() {
-    for(int i=0;i<nbclients;i++)
+    for(int i=0;i<clients.size();i++)
     {
         bilanclient(i);
     }
 
 }
 
- Client *Banque::getClients() {
-    return clients;
-}
+
 
 void Banque::interaction() {
     int saisie=0;
@@ -55,7 +53,7 @@ void Banque::interaction() {
             break;
 
         case 2:
-            this->opclient(this->choix("client",nbclients));
+            this->opclient(this->choix("client",clients.size()));
             break;
 
         case 3:
@@ -91,16 +89,16 @@ void Banque::opclient(int numcli) {
             clients[numcli].ajouterCompte();
             break;
         case 2:
-            clients[numcli].getComptes()[this->choix("compte",clients[numcli].getNbcomptes())].depot(this->choixMontant());
+            clients[numcli].getComptes()[this->choix("compte",clients[numcli].getComptes().size())].depot(this->choixMontant());
             break;
         case 3:
-            clients[numcli].getComptes()[this->choix("compte",clients[numcli].getNbcomptes())].retrait(this->choixMontant());
+            clients[numcli].getComptes()[this->choix("compte",clients[numcli].getComptes().size())].retrait(this->choixMontant());
             break;
 
         case 4:
-            clients[numcli].getComptes()[this->choix("compte",clients[numcli].getNbcomptes())].
-            virer(this->choixMontant(),clients[this->choix("client",nbclients)].
-            getComptes()[this->choix("compte",clients[numcli].getNbcomptes())]);
+            clients[numcli].getComptes()[this->choix("compte",clients[numcli].getComptes().size())].
+            virer(this->choixMontant(),clients[this->choix("client",clients.size())].
+            getComptes()[this->choix("compte",clients[numcli].getComptes().size())]);
             break;
 
         case 5:
@@ -119,30 +117,6 @@ void Banque::opclient(int numcli) {
     this->opclient(numcli);
 
 }
-/******************************code not dry***************************************************/
-/*int Banque::choixClient() {
-    int saisie=0;
-    for(int i=0;i<nbclients;i++)
-    {
-        cout<<i<<endl;
-    }
-    cout<<"Veuillez choisir le numéro de client"<<endl;
-    cin>>saisie;
-    return saisie;
-}
-
-int Banque::choixCompte(int numclient) {
-    int saisie=0;
-    for(int i=0;i<clients[numclient].getNbcomptes();i++)
-    {
-        cout<<i<<endl;
-    }
-    cout<<"Veuillez choisir un compte"<<endl;
-    cin>>saisie;
-    return saisie;
-}
-*/
-/**********************refactor to one method**********************************************/
 
 int Banque::choix(string type,int limit) {
     int saisie=0;
@@ -162,6 +136,7 @@ float Banque::choixMontant() {
     cin >> montant;
     return montant;
 }
+
 
 
 

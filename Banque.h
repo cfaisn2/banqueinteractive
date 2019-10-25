@@ -12,8 +12,8 @@ class Banque {
 
 private:
 
-    Client clients[100];
-    int nbclients;
+    vector<Client> clients;
+
 
 public:
 
@@ -22,7 +22,7 @@ public:
     void bilanclient(const int numeroduclient);
     void afficherBilan();
 
-    Client *getClients();
+
 
     //int choixClient();
 

@@ -2,6 +2,7 @@
 // Created by eric on 30/08/19.
 //
 
+#include <iostream>
 #include "Client.h"
 
 string Client::getNom() {
@@ -13,17 +14,10 @@ string Client::getNom() {
 
 
 
-Client::Client(const string &nom_du_client) : nom(nom_du_client),nbcomptes(0) {
+Client::Client(const string &nom_du_client) : nom(nom_du_client) {
 
 }
 
-
-
-
-
- Compte* Client::getComptes()  {
-    return comptes;
-}
 
 float Client::getSolde() {
     float totalsolde=0;
@@ -41,8 +35,9 @@ void Client::afficherSolde(int numcompte) {
 }
 
 void Client::ajouterCompte() {
-    comptes[nbcomptes]=Compte(nbcomptes);
-    nbcomptes++;
+    comptes.push_back(Compte(comptes.size()));
+    cout<<"Le compte "<<comptes.size()-1<<" a été crée"<<endl;
+
 
 }
 
@@ -50,8 +45,10 @@ Client::Client() {
 
 }
 
-unsigned int Client::getNbcomptes() const {
-    return nbcomptes;
+
+
+ vector<Compte> &Client::getComptes()  {
+    return comptes;
 }
 
 

@@ -7,14 +7,14 @@
 
 
 #include <string>
+#include <vector>
 #include "Compte.h"
 using namespace std;
 class Client {
 
 private:
-    Compte comptes[100]; //déclaration d'un tableau de comptes
+    vector<Compte> comptes; //déclaration d'un vector de comptes
     string nom;
-    unsigned int nbcomptes;
 
 public:
 
@@ -24,9 +24,10 @@ public:
     float getSolde();
     void afficherSolde(int numcompte);
     void ajouterCompte();
-    Compte* getComptes();
 
-    unsigned int getNbcomptes() const;
+    vector<Compte> &getComptes();
+
+
 
 
 };
